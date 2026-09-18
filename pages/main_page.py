@@ -1,46 +1,32 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from pages.base_page import BasePage
+from locators.main_page_locators import MainPageLocators
 
 
-class MainPage:
+class MainPage(BasePage):
     """Page Object для главной страницы Яндекс.Самокат"""
 
-    # Кнопки "Заказать"
-    ORDER_BUTTON_TOP = (By.XPATH, "//button[text()='Заказать']")
-    ORDER_BUTTON_BOTTOM = (By.XPATH, "//button[contains(@class, 'Button_Middle')]")
+    URL = "https://qa-scooter.education-services.ru/"
 
-    # Логотипы
-    YANDEX_LOGO = (By.XPATH, "//a[contains(@class, 'Header_LogoYandex')]")
-    SCOOTER_LOGO = (By.XPATH, "//a[contains(@class, 'Header_LogoScooter')]")
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
-
-    def open(self):
+    def open_main_page(self):
         """Открыть главную страницу"""
-        self.driver.get("https://qa-scooter.education-services.ru/")
+        self.open(self.URL)
 
     def click_order_button_top(self):
         """Клик по кнопке 'Заказать' (сверху)"""
-        self.wait.until(EC.element_to_be_clickable(self.ORDER_BUTTON_TOP)).click()
+        self.click(MainPageLocators.ORDER_BUTTON_TOP)
 
     def click_order_button_bottom(self):
         """Клик по кнопке 'Заказать' (снизу)"""
-        button = self.wait.until(EC.element_to_be_clickable(self.ORDER_BUTTON_BOTTOM))
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", button)
-        self.driver.execute_script("arguments[0].click();", button)
+        self.click(MainPageLocators.ORDER_BUTTON_BOTTOM)
 
     def click_question(self, question_number):
         """Клик по вопросу в аккордеоне (0-7)"""
+        from selenium.webdriver.common.by import By
         locator = (By.ID, f"accordion__heading-{question_number}")
-        element = self.wait.until(EC.presence_of_element_located(locator))
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-        self.driver.execute_script("arguments[0].click();", element)
+        self.click(locator)
 
     def get_answer_text(self, answer_number):
         """Получить текст ответа (0-7)"""
+        from selenium.webdriver.common.by import By
         locator = (By.ID, f"accordion__panel-{answer_number}")
-        element = self.wait.until(EC.visibility_of_element_located(locator))
-        return element.text
+        return self.get_text(locator)
