@@ -23,3 +23,7 @@ class OrderPageLocators:
     # Подтверждение
     YES_BUTTON = (By.XPATH, "//button[text()='Да']")
     SUCCESS_MESSAGE = (By.XPATH, "//div[contains(text(), 'Заказ оформлен')]")
+
+    # Шаблоны (динамические)
+    METRO_OPTION_TEMPLATE = (By.XPATH, "//div[text()='{}']")
+    RENTAL_OPTION_TEMPLATE = (By.XPATH, "//div[contains(@class, 'Dropdown-option') and contains(text(), '{}')]")

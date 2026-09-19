@@ -11,3 +11,7 @@ class MainPageLocators:
     # Логотипы
     YANDEX_LOGO = (By.XPATH, "//a[contains(@class, 'Header_LogoYandex')]")
     SCOOTER_LOGO = (By.XPATH, "//a[contains(@class, 'Header_LogoScooter')]")
+
+    # Вопросы аккордеона (шаблоны)
+    QUESTION_TEMPLATE = (By.ID, "accordion__heading-{}")
+    ANSWER_TEMPLATE = (By.ID, "accordion__panel-{}")

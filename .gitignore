@@ -7,8 +7,8 @@ venv/
 env/
 
 # Allure
-allure_results/
-allure-report/
+#allure_results/
+#allure-report/
 
 # IDE
 .vscode/

@@ -1,7 +1,5 @@
-import time
 from pages.base_page import BasePage
 from locators.order_page_locators import OrderPageLocators
-from selenium.webdriver.common.by import By
 
 
 class OrderPage(BasePage):
@@ -14,7 +12,9 @@ class OrderPage(BasePage):
         self.fill(OrderPageLocators.ADDRESS_INPUT, address)
         self.click(OrderPageLocators.METRO_INPUT)
         self.fill(OrderPageLocators.METRO_INPUT, metro)
-        self.click((By.XPATH, f"//div[text()='{metro}']"))
+        metro_option = (OrderPageLocators.METRO_OPTION_TEMPLATE[0],
+                        OrderPageLocators.METRO_OPTION_TEMPLATE[1].format(metro))
+        self.click(metro_option)
         self.fill(OrderPageLocators.PHONE_INPUT, phone)
         self.click(OrderPageLocators.NEXT_BUTTON)
 
@@ -22,13 +22,12 @@ class OrderPage(BasePage):
         """Заполнить вторую форму заказа"""
         # Дата
         self.fill(OrderPageLocators.DATE_INPUT, date)
-        time.sleep(1)
 
-        # Срок аренды — клик по стрелке
+        # Срок аренды
         self.click(OrderPageLocators.RENTAL_ARROW)
-        time.sleep(1)
-        self.click((By.XPATH, f"//div[contains(@class, 'Dropdown-option') and contains(text(), '{rental_period}')]"))
-        time.sleep(1)
+        rental_option = (OrderPageLocators.RENTAL_OPTION_TEMPLATE[0],
+                         OrderPageLocators.RENTAL_OPTION_TEMPLATE[1].format(rental_period))
+        self.click(rental_option)
 
         # Цвет
         if color == "black":

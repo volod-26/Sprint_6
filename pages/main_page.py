@@ -21,12 +21,12 @@ class MainPage(BasePage):
 
     def click_question(self, question_number):
         """Клик по вопросу в аккордеоне (0-7)"""
-        from selenium.webdriver.common.by import By
-        locator = (By.ID, f"accordion__heading-{question_number}")
+        locator = (MainPageLocators.QUESTION_TEMPLATE[0],
+                   MainPageLocators.QUESTION_TEMPLATE[1].format(question_number))
         self.click(locator)
 
     def get_answer_text(self, answer_number):
         """Получить текст ответа (0-7)"""
-        from selenium.webdriver.common.by import By
-        locator = (By.ID, f"accordion__panel-{answer_number}")
+        locator = (MainPageLocators.ANSWER_TEMPLATE[0],
+                   MainPageLocators.ANSWER_TEMPLATE[1].format(answer_number))
         return self.get_text(locator)
